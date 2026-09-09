@@ -7,17 +7,14 @@ import { useRouter } from "next/router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
-const formSchema = z
-  .object({
-    email: z.email({
-      message: "Enter a valid email",
-    }),
-    password: z.string().min(6, {
-      message: "Password must be at least 6 characters",
-    }),
-  });
-
+const formSchema = z.object({
+  email: z.email({ message: "Enter a valid email" }),
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters",
+  }),
+});
 
 export default function SignInPage() {
   const router = useRouter();
@@ -27,7 +24,7 @@ export default function SignInPage() {
     resolver: zodResolver(formSchema)
   });
   
-  const handleSignUp = async (data: FormData) => {
+  const handleSignIn = async (data: FormData) => {
     const { error } = await authClient.signIn.email({
       email: data.email,
       password: data.password
@@ -45,7 +42,7 @@ export default function SignInPage() {
   return (
     <FormLayout title="Welcome back" subTitle="Sign in to your account">
       {/* Form */}
-      <form className="space-y-5">
+      <form className="space-y-5" onSubmit={handleSubmit(handleSignIn)}>
         {/* Email */}
         <div>
           <label className="block text-sm text-gray-300 mb-1">Email</label>
@@ -64,16 +61,16 @@ export default function SignInPage() {
         <div>
           <label className="block text-sm text-gray-300 mb-1">Password</label>
           <input
-            // {...register("password")}
+            {...register("password")}
             type="password"
             placeholder="********"
             className={`w-full rounded-lg bg-gray-800 border px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2`}
           />
-          {/* {errors.password && (
+          {errors.password && (
             <p className="text-red-400 text-xs mt-1">
               {errors.password.message}
             </p>
-          )} */}
+          )}
         </div>
 
         {/* Forgot password */}
@@ -89,10 +86,10 @@ export default function SignInPage() {
         {/* Submit */}
         <button
           type="submit"
-          // disabled={isSubmitting}
+          disabled={isSubmitting}
           className="w-full bg-teal-500 hover:bg-teal-600 transition text-white font-medium py-2.5 rounded-lg flex items-center justify-center disabled:opacity-70"
         >
-          {/* {isSubmitting ? "Signing in..." : "Sign In"} */}
+          {isSubmitting ? "Signing in..." : "Sign In"}
           Sign In
         </button>
       </form>
