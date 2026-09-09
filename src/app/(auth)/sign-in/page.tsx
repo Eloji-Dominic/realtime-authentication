@@ -2,9 +2,46 @@ import FormLayout from "@/components/Layout/FormLayout";
 import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 import Link from "next/link";
+import z from "zod";
+import { useRouter } from "next/router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+
+const formSchema = z
+  .object({
+    email: z.email({
+      message: "Enter a valid email",
+    }),
+    password: z.string().min(6, {
+      message: "Password must be at least 6 characters",
+    }),
+  });
 
 
 export default function SignInPage() {
+  const router = useRouter();
+  type FormData = z.infer<typeof formSchema>
+  
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  });
+  
+  const handleSignUp = async (data: FormData) => {
+    const { error } = await authClient.signIn.email({
+      email: data.email,
+      password: data.password
+    });
+
+    if(error){
+      toast.error(error.message as string);
+      return;
+    }
+
+    toast.success("Signin was successful");
+    router.push("/");
+  }
+
   return (
     <FormLayout title="Welcome back" subTitle="Sign in to your account">
       {/* Form */}
@@ -13,14 +50,14 @@ export default function SignInPage() {
         <div>
           <label className="block text-sm text-gray-300 mb-1">Email</label>
           <input
-            // {...register("email")}
+            {...register("email")}
             type="text"
             placeholder="you@example.com"
             className={`w-full rounded-lg bg-gray-800 border px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2`}
           />
-          {/* {errors.email && (
+          {errors.email && (
             <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
-          )} */}
+          )}
         </div>
 
         {/* Password */}
