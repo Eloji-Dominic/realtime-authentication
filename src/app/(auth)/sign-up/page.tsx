@@ -47,7 +47,7 @@ export default function SignUpPage() {
     });
 
     if(error){
-      toast.error(error.message as string);
+      toast.error("Registration was not successful");
       return;
     }
 
@@ -132,7 +132,7 @@ export default function SignUpPage() {
           type="submit"
           className="w-full bg-teal-500 hover:bg-teal-600 transition text-white font-medium py-2.5 rounded-lg flex items-center justify-center disabled:opacity-70 cursor-pointer"
         >
-          {isSubmitting ? "Creating Account..." : "Sign up"}
+          {isSubmitting ? "Signing up..." : "Sign up"}
         </button>
 
         {/* Divider */}

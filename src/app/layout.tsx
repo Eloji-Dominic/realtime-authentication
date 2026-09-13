@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({
+const roboto = Roboto({
   weight: ["100", "200", "300", "400", "600", "700"], 
-  variable: "--font-poppins",
+  variable: "--font-roboto",
   subsets: ["latin"]
 })
 
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${poppins.className} h-full flex flex-col`}>
+    <html lang="en" className={`${roboto.className} h-full flex flex-col`}>
       <body className="bg-gray-950">
-        <Toaster />
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>

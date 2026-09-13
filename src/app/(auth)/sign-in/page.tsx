@@ -1,9 +1,11 @@
+"use client";
+
 import FormLayout from "@/components/Layout/FormLayout";
 import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 import Link from "next/link";
 import z from "zod";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
@@ -36,7 +38,7 @@ export default function SignInPage() {
     }
 
     toast.success("Signin was successful");
-    router.push("/");
+    router.push("/dashboard");
   }
 
   return (
@@ -90,7 +92,6 @@ export default function SignInPage() {
           className="w-full bg-teal-500 hover:bg-teal-600 transition text-white font-medium py-2.5 rounded-lg flex items-center justify-center disabled:opacity-70"
         >
           {isSubmitting ? "Signing in..." : "Sign In"}
-          Sign In
         </button>
       </form>
 
