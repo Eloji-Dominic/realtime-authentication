@@ -9,6 +9,12 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "sqlite", ...etc
   }),
+  socialProviders: {
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID! as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
+    },
+  },
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
@@ -22,7 +28,7 @@ export const auth = betterAuth({
           userEmail: user.email,
           resetURL: url,
         }),
-      })
+      });
     },
   },
   emailVerification: {
@@ -38,16 +44,3 @@ export const auth = betterAuth({
     },
   },
 });
-
-// export const auth = betterAuth({
-  //...other options
-  // emailAndPassword: { 
-  //   enabled: true, 
-  // }, 
-//   socialProviders: { 
-//     github: { 
-//       clientId: process.env.GITHUB_CLIENT_ID as string, 
-//       clientSecret: process.env.GITHUB_CLIENT_SECRET as string, 
-//     }, 
-//   }, 
-// });

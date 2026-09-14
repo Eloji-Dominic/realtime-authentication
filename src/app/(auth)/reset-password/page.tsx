@@ -2,6 +2,7 @@
 import FormLayout from '@/components/Layout/FormLayout';
 import { authClient } from '@/lib/auth-client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -58,12 +59,12 @@ function ResetPasswordPage() {
           <p className="text-green-400 text-sm">
             ✅ Password reset successfully!
           </p>
-          <a
+          <Link
             href="/sign-in"
             className="text-teal-400 hover:text-teal-300 text-sm"
           >
             Back to login
-          </a>
+          </Link>
         </div>
       ) : (
         <form
@@ -128,9 +129,9 @@ function ResetPasswordPage() {
       {/* Footer */}
       <p className="text-sm text-gray-400 text-center mt-6">
         Remember your password?{" "}
-        <a href="/sign-in" className="text-teal-400 hover:text-teal-300">
+        <Link href="/sign-in" className="text-teal-400 hover:text-teal-300">
           Sign in
-        </a>
+        </Link>
       </p>
     </FormLayout>
   );

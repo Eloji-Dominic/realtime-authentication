@@ -1,8 +1,12 @@
+import { getCurrentUser } from "@/server-actions/getCurrentUser"
+import { redirect } from "next/navigation";
 
-const Home = () => {
-  return (
-    <div className="text-white">Home</div>
-  )
+export default async function Home() {
+  const currentUser = await getCurrentUser();
+
+  if(currentUser?.id){
+    redirect("dashboard")
+  } else{
+    redirect("/sign-in")
+  }
 }
-
-export default Home;

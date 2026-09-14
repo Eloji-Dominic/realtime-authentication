@@ -2,7 +2,6 @@
 
 import FormLayout from "@/components/Layout/FormLayout";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 import z from "zod";
 import { useForm } from "react-hook-form"
@@ -10,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { signInWithGitHub } from "@/lib/auth-social";
 
 const formSchema = z
   .object({
@@ -142,18 +142,18 @@ export default function SignUpPage() {
           <div className="flex-1 h-px bg-gray-800" />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <button
+        <div className="w-full p-5">
+          {/* <button
             // onClick={handleGoogleSignin}
             type="button"
             className="cursor-pointer flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
           >
-            <FcGoogle className="w-5 h-5" />
-            Google
-          </button>
+            <FaLinkedin className="w-5 h-5" />
+            LinkedIn
+          </button> */}
 
           <button
-            // onClick={handleGithubSignin}
+            onClick={signInWithGitHub}
             type="button"
             className="cursor-pointer flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
           >

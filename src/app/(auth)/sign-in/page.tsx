@@ -1,7 +1,6 @@
 "use client";
 
 import FormLayout from "@/components/Layout/FormLayout";
-import { FcGoogle } from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
 import Link from "next/link";
 import z from "zod";
@@ -10,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { signInWithGitHub } from "@/lib/auth-social";
 
 const formSchema = z.object({
   email: z.email({ message: "Enter a valid email" }),
@@ -103,22 +103,22 @@ export default function SignInPage() {
       </div>
 
       {/* Social Auth */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="w-full p-5">
         {/* Google */}
-        <button
+        {/* <button
           // onClick={handleGoogleSignin}
           type="button"
           className="flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
         >
-          <FcGoogle className="w-5 h-5" />
-          Google
-        </button>
+          <FaLinkedin className="w-5 h-5" />
+          LinkedIn
+        </button> */}
 
         {/* GitHub */}
         <button
-          // onClick={handleGithubSignin}
+          onClick={signInWithGitHub}
           type="button"
-          className="flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
+          className="flex items-center cursor-pointer justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm w-full"
         >
           <FaGithub className="w-5 h-5 text-white" />
           GitHub
