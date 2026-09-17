@@ -1,5 +1,6 @@
 "use client";
 
+import ToggleTwoFactor from "@/components/Layout/ToggleTwoFactor";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
@@ -21,6 +22,8 @@ export default function DashboardPage(){
       },
     });
   }
+
+  const is2FAEnabled = session?.user.twoFactorEnabled;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white px-4 py-8">
@@ -54,15 +57,15 @@ export default function DashboardPage(){
         {/* 2FA Section */}
         <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            {/* <div>
+            <div>
               <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
               <p className="text-sm text-gray-400">
                 Add an extra layer of security to your account
               </p>
-            </div> */}
+            </div>
 
             {/* Status Badge */}
-            {/* <span
+            <span
               className={`text-xs font-medium px-3 py-1 rounded-full ${
                 is2FAEnabled
                   ? "bg-green-500/10 text-green-400"
@@ -70,15 +73,15 @@ export default function DashboardPage(){
               }`}
             >
               {is2FAEnabled ? "Enabled" : "Disabled"}
-            </span> */}
+            </span>
           </div>
 
           {/* Toggle Component */}
-          {/* {session && (
+          {session && (
             <ToggleTwoFactor
               twofactorEnabled={session?.user.twoFactorEnabled ?? undefined}
             />
-          )} */}
+          )}
         </div>
       </div>
     </div>

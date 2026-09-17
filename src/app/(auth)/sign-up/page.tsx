@@ -155,7 +155,7 @@ export default function SignUpPage() {
           <button
             onClick={signInWithGitHub}
             type="button"
-            className="cursor-pointer flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
+            className="w-full cursor-pointer flex items-center justify-center gap-2 border border-gray-700 hover:bg-gray-800 hover:border-gray-600 transition text-white py-2.5 rounded-lg text-sm"
           >
             <FaGithub className="w-5 h-5 text-white" />
             GitHub

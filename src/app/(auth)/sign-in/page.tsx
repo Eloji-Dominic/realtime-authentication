@@ -27,10 +27,23 @@ export default function SignInPage() {
   });
   
   const handleSignIn = async (data: FormData) => {
-    const { error } = await authClient.signIn.email({
-      email: data.email,
-      password: data.password
-    });
+    const { error } = await authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+      },
+      {
+        async onSuccess(context) {
+          if (context.data.twoFactorRedirect) {
+            await authClient.twoFactor.sendOtp({});
+            router.push("/two-factor");
+          } else {
+            toast.success("Logged in successfully!");
+            router.push("/dashboard");
+          }
+        },
+      },
+    );
 
     if(error){
       toast.error(error.message as string);
